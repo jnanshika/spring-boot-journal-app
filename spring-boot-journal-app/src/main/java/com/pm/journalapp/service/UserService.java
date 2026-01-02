@@ -27,7 +27,7 @@ public class UserService {
     public void saveNewUser(User user){
         try{
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-            user.setRoles(Arrays.asList("USER"));
+            user.setRoles(Arrays.asList("user"));
             userRepository.save(user);
         }
         catch (Exception e){
@@ -80,5 +80,18 @@ public class UserService {
         catch (Exception e){
             log.error("Exception occurred in saveJournalEntryInUser. Message= {} ", e.getMessage());
         }
+    }
+
+    public User saveNewAdmin(User user){
+        User savedUser= null;
+        try{
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setRoles(Arrays.asList("admin"));
+            savedUser = userRepository.save(user);
+        }
+        catch (Exception e){
+            log.error("Exception occurred in saveEntry. " + e.getMessage());
+        }
+        return savedUser;
     }
 }
