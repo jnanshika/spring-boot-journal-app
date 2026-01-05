@@ -1,8 +1,7 @@
 package com.pm.journalapp.entity;
 
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -14,6 +13,9 @@ import java.util.List;
 
 @Document(collection="users")
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
     @Id
     private ObjectId id;
@@ -23,6 +25,9 @@ public class User {
     private String userName;
     @NotNull
     private String password;
+
+    private String email;
+    private boolean sentimentAnalysis;
 
     private List<String> roles;
 

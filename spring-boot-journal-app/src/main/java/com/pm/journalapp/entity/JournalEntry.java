@@ -1,5 +1,6 @@
 package com.pm.journalapp.entity;
 
+import com.pm.journalapp.enums.Sentiment;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.bson.types.ObjectId;
@@ -17,4 +18,5 @@ public class JournalEntry {
     private String title;
     private String content;
     private LocalDateTime date;
+    private Sentiment sentiment;
 }

@@ -24,15 +24,17 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void saveNewUser(User user){
+    public User saveNewUser(User user){
+        User savedUser = null;
         try{
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setRoles(Arrays.asList("user"));
-            userRepository.save(user);
+            savedUser = userRepository.save(user);
         }
         catch (Exception e){
             log.error("Exception occurred in saveEntry. " + e.getMessage());
         }
+        return savedUser;
     }
 
     public List<User> getAllUsers(){

@@ -4,7 +4,6 @@ import com.pm.journalapp.entity.User;
 import com.pm.journalapp.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -29,9 +28,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                     .username(user.getUserName())
                     .password(user.getPassword())
                     .roles(user.getRoles().toArray(new String[0]))
-//                    .authorities((GrantedAuthority) user.getRoles())
                     .build();
-
         }
         throw new UsernameNotFoundException("User not found with username: " + username);
     }

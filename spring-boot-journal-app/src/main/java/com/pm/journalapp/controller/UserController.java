@@ -1,21 +1,23 @@
 package com.pm.journalapp.controller;
 
+import com.pm.journalapp.api.response.WeatherResponse;
 import com.pm.journalapp.entity.User;
 import com.pm.journalapp.service.UserService;
+import com.pm.journalapp.service.WeatherService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/users")
 public class UserController {
     private final UserService userService;
-    public UserController(UserService userService) {
+    private final WeatherService weatherService;
+    public UserController(UserService userService, WeatherService weatherService) {
         this.userService = userService;
+        this.weatherService = weatherService;
     }
 
     @PutMapping("/update")
@@ -32,4 +34,13 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @GetMapping("/greeting")
+    public ResponseEntity<?> greeting(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        WeatherResponse weatherResponse = weatherService.getWeather("Mumbai");
+        String weatherFeelsLike = "";
+        if( weatherResponse !=null)
+            weatherFeelsLike = ", weather in Mumbai feels like " + weatherResponse.getCurrent().getFeelslike();
+        return new ResponseEntity<>("Hey! " + authentication.getName() + weatherFeelsLike, HttpStatus.OK);
+    }
 }
