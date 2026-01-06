@@ -55,7 +55,7 @@ public class UserScheduler {
 
             //sending most frequently sentiment as part of email
             if (mostFrequentSentiment != null) {
-                emailService.sendEmail("anshikabca3rdyearz1@gmail.com", "Sentiment for last 7 days ", mostFrequentSentiment.toString());
+                emailService.sendEmail(user.getEmail(), "Journal App - Sentiment Analysis for last 7 days", mostFrequentSentiment.toString());
             }
         }
     }
